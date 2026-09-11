@@ -15,7 +15,7 @@ renting a closed workforce-management SaaS.
 (`livestockfarm.governor`), following the itonami actor pattern
 (ADR-2607121000): `:intake -> :advise -> :govern -> :decide -+-> :commit
 (:ok?) +-> :request-approval (:escalate?, human-in-the-loop interrupt) +->
-:hold (:hard?)`. 24 tests / 52 assertions green (`clojure -M:test`). HARD
+:hold (:hard?)`. 24 tests / 52 assertions green (`kbb -M:test`). HARD
 invariants (always hold, never overridable): worker provenance, farm
 provenance, no-actuation (`:effect` must be `:propose`), a closed
 op-allowlist (`:log-work-record`, `:schedule-crew-operation`,
