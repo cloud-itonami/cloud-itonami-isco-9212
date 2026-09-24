@@ -1,0 +1,34 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a farm scheduling/logistics coordination robot
+;; performs crew scheduling, feeding/care logging and feed/farm-supplies
+;; procurement coordination for a livestock-farm crew (ISCO 9212). It never
+;; handles livestock. Its physical work is the supplies logistics: carrying
+;; delivered feed sacks from the feed store to the pens, and draining a
+;; stock-water tank for its scheduled cleaning.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-9212"
+ :cases
+ [{:id :feed-sacks-to-pens
+   :kind :transport
+   :procedure "farm-yard robot carries 25 kg feed sacks 80 m over the concrete/gravel yard from the feed store to the pens"
+   :params {:mass-kg 80.0 :payload-kg 50.0 :distance-m 80.0 :v-max-mps 1.0 :a-max-mps2 0.5
+            :brake-decel-mps2 0.8 :drive-force-n 160.0 :crr 0.04
+            :cog-height-m 0.40 :support-half-length-m 0.30 :payload-cog-height-m 0.70
+            :max-time-s 1200.0}
+   :sweep {:param :payload-kg :values [25.0 50.0 100.0 200.0 300.0]}
+   :quantity :cycle-time-s
+   :limit {:max 120.0 :basis "estimate: one sack run per feeding round so the morning feed is done within the crew's feeding slot"}
+   :boundary {:lo 0.0 :hi 400.0}}
+  {:id :stock-water-tank-drain
+   :kind :tank-drain
+   :procedure "drain a 1.5 m2 stock-water tank from 1.0 m to 0.05 m through its outlet valve for the scheduled trough/tank cleaning"
+   :params {:tank-area-m2 1.5 :h0-m 1.0 :h-target-m 0.05 :cd 0.62 :q-in-m3s 0.0}
+   :sweep {:param :orifice-area-m2 :values [0.0003 0.0005 0.0008 0.0013 0.002]}
+   :quantity :time-to-target-s
+   :limit {:max 900.0 :basis "estimate: drain within 15 minutes so cleaning and refilling fit between two drinking periods"}
+   :boundary {:lo 0.0002 :hi 0.003}}]}
