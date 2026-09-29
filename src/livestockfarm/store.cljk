@@ -1,6 +1,6 @@
 (ns livestockfarm.store
   "SSoT for the ISCO-08 9212 livestock-farm scheduling/logistics
-  coordination actor (itonami actor pattern, ADR-2607121000 / CLAUDE.md
+  coordination actor (itonami actor pattern, ADR-2607121000 / AGENTS.md
   Actors section; README's 'Robotics premise' — a farm scheduling/logistics
   coordination robot performs crew scheduling, feeding/care-log/progress-
   record logging and feed/farm-supplies procurement coordination for a

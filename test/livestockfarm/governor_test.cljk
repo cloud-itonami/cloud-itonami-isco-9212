@@ -72,7 +72,7 @@
       (is (some #(= :scope-excluded-action (:rule %)) (:violations v))))))
 
 (deftest hard-on-scope-excluded-op-declare-farm-safety-cleared
-  (testing "declaring the farm safety cleared (a farm-safety-clearance decision) is a permanent block, never a routine op — CLAUDE.md's farm-safety-clearance dimension"
+  (testing "declaring the farm safety cleared (a farm-safety-clearance decision) is a permanent block, never a routine op — AGENTS.md's farm-safety-clearance dimension"
     (let [st (fresh-store)
           v (governor/check req {} (assoc (op :declare-farm-safety-cleared) :confidence 0.99) st)]
       (is (:hard? v))
@@ -141,7 +141,7 @@
     (is (:escalate? v))))
 
 (deftest default-mock-advisor-proposals-never-self-trip-on-scope-exclusion
-  (testing "the governor's scope-exclusion term list must never match the mock advisor's own default rationale text for any allowlisted op — CLAUDE.md's known self-tripping bug pattern (rationale legitimately contains bare nouns like 'livestock'/'farm'/'farm safety supervisor', but never the full finalization-action phrases)"
+  (testing "the governor's scope-exclusion term list must never match the mock advisor's own default rationale text for any allowlisted op — AGENTS.md's known self-tripping bug pattern (rationale legitimately contains bare nouns like 'livestock'/'farm'/'farm safety supervisor', but never the full finalization-action phrases)"
     (let [st (fresh-store)
           adv (advisor/mock-advisor)
           ops [:log-work-record :schedule-crew-operation
